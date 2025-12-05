@@ -117,6 +117,45 @@ class Mail
             $arFields['ELEMENT_LINK'] = $arRes['DETAIL_PAGE_URL'];
         }
     }
+
+    public static function sendAnswer($arFields)
+    {
+        if (isset($arFields['LID']) && !isset($arFields['SITE'])) {
+            $arFields['SITE'] = $arFields['LID'];
+        }
+
+        if (empty($arFields['SITE'])) {
+            return false;
+        }
+
+        if(isset($arFields['ID_USER']) && $arFields['ID_USER'] > 0) {
+            self::getUserEmail($arFields);
+        }
+
+        if (empty($arFields['EMAIL_TO'])) {
+            if (isset($arFields['NOTICE_EMAIL']) && !empty($arFields['NOTICE_EMAIL'])) {
+                $arFields['EMAIL_TO'] = $arFields['NOTICE_EMAIL'];
+            } elseif (isset($arFields['EMAIL']) && !empty($arFields['EMAIL'])) {
+                $arFields['EMAIL_TO'] = $arFields['EMAIL'];
+            }
+        }
+
+        if (!empty($arFields['EMAIL_TO'])) {
+            self::getFieldSite($arFields, $arFields['SITE']);
+            if(isset($arFields['ID_ELEMENT'])) {
+                self::getFieldProduct($arFields, $arFields['ID_ELEMENT']);
+            }
+            
+            Event::send([
+                'EVENT_NAME' => 'SOTBIT_QUESTION_ANSWERED',
+                'LID' => $arFields['SITE'],
+                'C_FIELDS' => $arFields,
+            ]);
+            return true;
+        }
+
+        return false;
+    }
 }
 
 ?>

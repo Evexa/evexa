@@ -79,5 +79,20 @@ class QuestionEvent
                 'QUESTIONS'
             );
         }
+
+        // Add notification about the answer
+        if (
+            !empty($arFields['NEW_FIELDS']['ANSWER']) &&
+            (!isset($arFields['OLD_FIELDS']['ANSWER']) || $arFields['NEW_FIELDS']['ANSWER'] != $arFields['OLD_FIELDS']['ANSWER'])
+        ) {
+            $eventFields = $arFields['OLD_FIELDS'];
+            $eventFields['ANSWER'] = $arFields['NEW_FIELDS']['ANSWER'];
+
+            if(isset($eventFields['LID'])) {
+                $eventFields['SITE'] = $eventFields['LID'];
+            }
+
+            \Sotbit\Reviews\Helper\Mail::sendAnswer($eventFields);
+        }
     }
 }
