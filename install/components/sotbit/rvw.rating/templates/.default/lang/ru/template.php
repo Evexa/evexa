@@ -1,0 +1,4 @@
+<?php
+
+$MESS['SR_COMPONENT_TEMPLATE_RATING_RATING'] = 'Рейтинг';
+$MESS['SR_COMPONENT_TEMPLATE_RATING_REVIEWS_COUNT'] = 'Количество отзывов';

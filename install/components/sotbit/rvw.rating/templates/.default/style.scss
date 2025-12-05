@@ -1,0 +1,20 @@
+.sotbit-rvw-rating {
+  all: unset;
+  display: flex;
+  align-items: center;
+  width: fit-content;
+  gap: 16px;
+  cursor: pointer;
+  text-decoration: none;
+
+  &__item {
+    display: flex;
+    align-items: center;
+    gap: 2px;
+  }
+
+  &__text {
+    color: initial;
+    font-size: 14px;
+  }
+}

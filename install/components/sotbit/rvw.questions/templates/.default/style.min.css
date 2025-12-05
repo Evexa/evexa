@@ -1,0 +1,1 @@
+.d-none{display:none!important}.reviews .reviews__wrapper{width:calc(648px + (828 - 648)*((100vw - 1440px)/(1920 - 1440)))}@media (min-width:1920px){.reviews .reviews__wrapper{width:828px}}

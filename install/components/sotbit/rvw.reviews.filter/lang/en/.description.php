@@ -1,0 +1,4 @@
+<?php
+$MESS["SR_COMPONENT_REVIEWS_FILTER_NAME"] = "Review list filter";
+$MESS["SR_COMPONENT_REVIEWS_FILTER_DESCRIPTION"] = " ";
+$MESS["SR_COMPONENT_MODULE_NAME"] = "Sothebyt: Extended Reviews";

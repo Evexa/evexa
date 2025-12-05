@@ -1,0 +1,228 @@
+SA_QuestionsAdd = {
+    init: function (params) {
+        this.form = document.querySelector('form[name="questions"]');
+
+        if (!this.form) {
+            return;
+        } else {
+            this.form.querySelector('input[type="submit"]').addEventListener('focus', this.sendQuestion.bind(this));
+        }
+
+        this.hiddenInputs = [];
+        this.canAddQuestions = params.canAddQuestions;
+        this.canAddQuestionsError = params.canAddQuestionsError;
+        this.isAuthUser = params.isAuthUser;
+        this.isAnonymous = params.isAnonymous;
+        this.isBuyProduct = params.isBuyProduct;
+        this.canRepeat = params.canRepeat ? true : false;
+        this.modRepeat = params.modRepeat ? params.modRepeat : -1;
+        this.countRepeat = params.countRepeat ? params.countRepeat : 0;
+        this.isTimeRepeat = params.isTimeRepeat == 'Y' ? true : false;
+        this.isModerate = params.isModerate == 'Y' ? true : false;
+        this.signedParameters = params.signedParameters;
+
+        this.form.addEventListener('submit', this.sendQuestion.bind(this));
+
+
+        if (document.readyState === "complete"
+            || document.readyState === "loaded"
+            || document.readyState === "interactive") {
+            BX.onCustomEvent('sotbit:reviews.questionsAddInit', [this]);
+        }else{
+            document.addEventListener('DOMContentLoaded', () => {
+                BX.onCustomEvent('sotbit:reviews.questionsAddInit', [this]);
+            });
+        }
+    },
+
+    getParams: function (param) {
+        let params = (new URL(document.location)).searchParams;
+        let result = {};
+
+        for (var pair of params.entries()) {
+            result[pair[0]] = pair[1];
+        }
+
+        return result;
+    },
+
+    hiddenElement: function (elem) {
+        if (elem) {
+            if (elem.classList.contains('d-block')) {
+                elem.classList.remove('d-block')
+            }
+            elem.classList.add('display-none-important');
+        }
+    },
+
+    viewedElement: function (elem) {
+        if (elem) {
+            if (elem.classList.contains('display-none-important')) {
+                elem.classList.remove('display-none-important')
+            }
+            elem.classList.add('d-block');
+        }
+    },
+
+    sendQuestion: function (event) {
+        event.preventDefault();
+
+        if (this.canAddQuestions === false) {
+            this.showModalResult(this.canAddQuestionsError, 'error');
+            return;
+        }
+
+        if (this.canRepeat === false) {
+            this.showModalResult(BX.message('repeat_message_quest'), 'error');
+            return;
+        }
+
+        let form = new FormData(this.form);
+
+        if (!form.get('QUESTION')) {
+            this.form.querySelector('input[name="QUESTION"]').focus();
+            this.form.querySelector('input[name="QUESTION"]').setCustomValidity(BX.message('error_input_quest'));
+            return false;
+        }
+
+        if (Number(form.get('ID')) > 0) {
+            SA_QuestionsList.editQuestionsController(this.form);
+            return;
+        }
+
+        if (this.form.dataset.active == 'add') {
+
+            BX.ajax.runComponentAction('sotbit:rvw.questions.add', 'addQuestions', {
+                mode: 'class',
+                data: new FormData(this.form),
+                signedParameters: this.signedParameters,
+            }).then(
+                (e) => {
+
+                    if (this.isModerate) {
+                        this.showModalResult(BX.message('success_title_moderate_quest'), 'success', BX.message('success_moderate_text_quest'));
+                    } else {
+                        this.showModalResult(BX.message('success_title_quest'), 'success');
+                    }
+
+                    if (this.modRepeat >= 0) {
+                        this.canRepeat = false;
+                    }
+                    this.deleteFormField();
+                },
+                (error) => {
+                    console.log(error);
+                    this.showModalResult(error.errors.map(item => item.message).join('\n'), 'error')
+                }
+            );
+
+            setTimeout(() => {
+                SA_Questions.reloadList(this.getParams());
+            }, "300");
+        }
+    },
+
+    deleteFormField: function () {
+        this.form.reset();
+        this.form.dataset.active = 'add';
+    },
+
+    showModalResult: function (title, status = '', text = '') {
+
+        if (status == 'success') {
+            icon = `<svg width="64" height="64" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M32.0007 5.33325C46.7282 5.33325 58.6673 17.2723 58.6673 31.9999C58.6673 46.7275 46.7282 58.6666 32.0007 58.6666C17.2731 58.6666 5.33398 46.7275 5.33398 31.9999C5.33398 17.2723 17.2731 5.33325 32.0007 5.33325ZM32.0007 9.33325C19.4822 9.33325 9.33398 19.4815 9.33398 31.9999C9.33398 44.5184 19.4822 54.6666 32.0007 54.6666C44.5191 54.6666 54.6673 44.5184 54.6673 31.9999C54.6673 19.4815 44.5191 9.33325 32.0007 9.33325ZM28.6673 35.8382L40.5864 23.919C41.3675 23.138 42.6338 23.138 43.4149 23.919C44.1249 24.6291 44.1895 25.7402 43.6085 26.5232L43.4149 26.7475L30.0815 40.0808C29.3715 40.7908 28.2604 40.8554 27.4774 40.2744L27.2531 40.0808L20.5864 33.4141C19.8054 32.6331 19.8054 31.3668 20.5864 30.5857C21.2965 29.8757 22.4076 29.8111 23.1905 30.3921L23.4149 30.5857L28.6673 35.8382L40.5864 23.919L28.6673 35.8382Z" fill="#18B131"/>
+                    </svg>`;
+            btns = ``;
+        }
+        if (status == 'error') {
+            icon = `<svg width="73" height="72" viewBox="0 0 73 72" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <g clip-path="url(#clip0_6093_11246)">
+                                        <path d="M36.5 72C56.3823 72 72.5 55.8823 72.5 36C72.5 16.1177 56.3823 0 36.5 0C16.6177 0 0.5 16.1177 0.5 36C0.5 55.8823 16.6177 72 36.5 72Z" fill="#E31C1C"/>
+                                        <g clip-path="url(#clip1_6093_11246)">
+                                        <path d="M56 20L52 16L36 32L20 16L16 20L32 36L16 52L20 56L36 40L52 56L56 52L40 36L56 20Z" fill="white"/>
+                                        </g>
+                                        </g>
+                                        <defs>
+                                        <clipPath id="clip0_6093_11246">
+                                        <rect width="72" height="72" fill="white" transform="translate(0.5)"/>
+                                        </clipPath>
+                                        <clipPath id="clip1_6093_11246">
+                                        <rect width="40" height="40" fill="white" transform="translate(16 16)"/>
+                                        </clipPath>
+                                        </defs>
+                                    </svg>
+                `;
+
+            btns = ``;
+        }
+
+        if (status == 'selection') {
+            icon = `<svg width="64" height="64" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M31.9997 17.3333C33.1042 17.3333 33.9997 18.2287 33.9997 19.3333V35.9999C33.9997 37.1045 33.1042 37.9999 31.9997 37.9999C30.8951 37.9999 29.9997 37.1045 29.9997 35.9999V19.3333C29.9997 18.2287 30.8951 17.3333 31.9997 17.3333ZM31.9997 46.6607C33.4724 46.6607 34.6663 45.4668 34.6663 43.9941C34.6663 42.5213 33.4724 41.3274 31.9997 41.3274C30.5269 41.3274 29.333 42.5213 29.333 43.9941C29.333 45.4668 30.5269 46.6607 31.9997 46.6607ZM31.9997 5.33325C46.7273 5.33325 58.6663 17.2723 58.6663 31.9999C58.6663 46.7275 46.7273 58.6666 31.9997 58.6666C27.6842 58.6666 23.5139 57.6388 19.7673 55.7013L9.56512 58.5475C7.792 59.0426 5.95322 58.0066 5.45809 56.2335C5.29425 55.6468 5.29433 55.0263 5.4582 54.4401L8.30531 44.2459C6.36332 40.4959 5.33301 36.3206 5.33301 31.9999C5.33301 17.2723 17.2721 5.33325 31.9997 5.33325ZM31.9997 9.33325C19.4812 9.33325 9.33301 19.4815 9.33301 31.9999C9.33301 35.9189 10.3271 39.6889 12.1944 43.0331L12.5961 43.7526L9.6289 54.377L20.2598 51.4112L20.9786 51.8119C24.3198 53.6749 28.0855 54.6666 31.9997 54.6666C44.5181 54.6666 54.6663 44.5184 54.6663 31.9999C54.6663 19.4815 44.5181 9.33325 31.9997 9.33325Z" fill="#FF9935"/>
+                </svg>
+                `;
+
+            btns = ` 
+                    <button class="btn-reviews btn-lite-reviews w-40 " value="Y">${BX.message('complains_yes_quest')}</button>
+                    <button class="btn-reviews btn-reviews--main w-40 " value="N">${BX.message('complains_no_quest')}</button>
+                `;
+        }
+
+        const modalResult = BX.create('DIV', {
+            props: {
+                className: 'review_modal modal_result show',
+                id: 'modal_result'
+            },
+            html: `<div class="modal-content">
+                        <div class="review_add__modal_header">
+                           ${icon}
+                        </div>
+                        <div class="modal_result__content">
+                            <h5>${title}</h5>
+                            <div>${text}</div>
+                        </div>
+                            <div class="review_add__modal_footer d-flex">
+                                ${btns}
+                            </div>
+                        </div>`
+        });
+
+        document.body.appendChild(modalResult);
+
+        window.addEventListener('click', (event) => {
+
+            if (event.target === modalResult) {
+                this.closeModalResult();
+            }
+
+            if (event.target === modalResult.querySelector('button')) {
+                if (modalResult.querySelector('button').value == '') {
+                    this.closeModalResult();
+                } else {
+                    if (status == 'selection') {
+                        modalResult.querySelectorAll('button').forEach(item => {
+                            if (item == event.target) {
+                                if (event.target.value == 'Y') {
+                                    SA_ReviewsList.elementComplaintController();
+                                }
+                            }
+                        });
+                    }
+
+                }
+            }
+
+            if (event.target.value == 'N') {
+                this.closeModalResult();
+            }
+
+        })
+    },
+
+    closeModalResult: function () {
+        document.body.classList.remove('overflow-hidden');
+        document.getElementById('modal_result')?.remove();
+        BX.Sotbit.Reviews.hideOverlay();
+    }
+}

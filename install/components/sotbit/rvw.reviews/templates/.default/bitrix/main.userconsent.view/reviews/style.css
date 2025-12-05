@@ -1,0 +1,18 @@
+.user-consent-view-button {
+    color: inherit !important;
+}
+
+.user-consent-view-title {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.user-consent-view-cancel-button {
+    margin: 0 auto !important;
+}
+
+.user-consent-view-modal {
+    height: 100%;
+    text-align: justify;
+}

@@ -1,0 +1,5 @@
+<?php
+
+$MESS['SR_COMPONENT_RATING_NAME'] = 'Element Rating';
+$MESS['SR_COMPONENT_RATING_DESCRIPTION'] = '';
+$MESS['SR_COMPONENT_MODULE_NAME'] = 'Sotbit: Extended Reviews';

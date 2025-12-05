@@ -1,0 +1,19 @@
+.sotbit-rvw-rating {
+  all: unset;
+  display: flex;
+  align-items: center;
+  width: fit-content;
+  gap: 16px;
+  cursor: pointer;
+  text-decoration: none;
+}
+.sotbit-rvw-rating__item {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+}
+.sotbit-rvw-rating__text {
+  color: initial;
+  font-size: 14px;
+}
+/*# sourceMappingURL=style.css.map */

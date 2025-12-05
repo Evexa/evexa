@@ -1,0 +1,4 @@
+<?php
+$MESS["SR_COMPONENT_REVIEWS_LIST_NAME"] = "List of reviews";
+$MESS["SR_COMPONENT_REVIEWS_LIST_DESCRIPTION"] = " ";
+$MESS["SR_COMPONENT_MODULE_NAME"] = "Sothebyt: Extended Reviews";

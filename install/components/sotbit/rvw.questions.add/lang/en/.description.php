@@ -1,0 +1,4 @@
+<?php
+$MESS['SR_COMPONENT_QUESTIONS_ADD_NAME'] = 'Add a question';
+$MESS['SR_COMPONENT_QUESTIONS_ADD_DESCRIPTION'] = '';
+$MESS['SR_COMPONENT_MODULE_NAME'] = 'Sotbit: Extended reviews';

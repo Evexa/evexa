@@ -1,0 +1,15 @@
+<?
+$MESS["QUESTIONS_ID_ELEMENT"] = "Element ID";
+$MESS["QUESTIONS_XML_ID_ELEMENT"] = "Element XML_ID";
+$MESS["QUESTIONS_ID_USER"] = "User ID";
+$MESS["QUESTIONS_QUESTION"] = "Question";
+$MESS["QUESTIONS_ANSWER"] = "Answer";
+$MESS["QUESTIONS_LIKES"] = "Like";
+$MESS["QUESTIONS_DISLIKES"] = "Dislike";
+$MESS["QUESTIONS_DATE_CREATION"] = "Date written";
+$MESS["QUESTIONS_DATE_CHANGE"] = "Date modified";
+$MESS["QUESTIONS_MODERATED"] = "Passed moderation";
+$MESS["QUESTIONS_MODERATED_BY"] = "Moderator";
+$MESS["QUESTIONS_ACTIVE"] = "Activity";
+$MESS["QUESTIONS_SHOWS"] = "Number of impressions";
+?>

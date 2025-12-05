@@ -1,0 +1,19 @@
+<?php
+$MESS["SHOW_REVIEWS"] = "Show Reviews";
+$MESS["SHOW_QUESTIONS"] = "Show Questions";
+$MESS["FIRST_ACTIVE"] = "Default Tab";
+$MESS["MAX_RATING"] = "Default Max Rating";
+$MESS["DEFAULT_RATING_ACTIVE"] = "Default Rating";
+$MESS["ID_ELEMENT"] = "Element ID";
+$MESS["REVIEWS"] = "Reviews";
+$MESS["COMMENTS"] = "Comments";
+$MESS["QUESTIONS"] = "Questions";
+$MESS["YES"] = "Yes";
+$MESS["NO"] = "No";
+$MESS["CACHE_TYPE"] = "Caching type";
+$MESS["CACHE_TIME"] = "Caching time (sec.)";
+$MESS["NOTICE_EMAIL"] = "Email for notification of new reviews/questions (if not filled in, the administrator's email is used)";
+$MESS["DATE_FORMAT"] = "Date display format";
+$MESS["REVIEWS_TEXTBOX_MAXLENGTH"] = "The length of the review text field";
+$MESS["QUESTIONS_TEXTBOX_MAXLENGTH"] = "Length of the question text field";
+$MESS['USER_AGREEMENT_ID'] = 'Publication rules agreement';

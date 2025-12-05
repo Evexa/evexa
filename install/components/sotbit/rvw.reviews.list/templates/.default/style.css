@@ -1,0 +1,240 @@
+.reviews .wrapper__statistic {
+	position: static !important;
+	width: 100% !important;
+	min-width: 0;
+	margin-bottom: 40px;
+}
+
+.reviews .user__info {
+	height: 100px;
+	position: relative;
+}
+
+.reviews .user__info img {
+	width: 100px;
+	height: 100px;
+}
+
+.reviews .user_complaint {
+	width: 32px;
+	height: 32px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	background: var(--reviews--gray-500);
+	position: absolute;
+	top: 68%;
+	left: 68%;
+	cursor: pointer;
+}
+
+.reviews .user_complaint:hover {
+	background: var(--reviews--gray-600);
+}
+
+.reviews .user__info--counter {
+	text-align: center;
+}
+
+.reviews .item__info___name-user {
+	font-weight: 500;
+	flex-basis: 100%;
+}
+
+.reviews .reviews--quote {
+	border-left: 4px solid var(--reviews--gray-500);
+	word-break: break-all;
+}
+
+.reviews .reviews--quote p {
+	color: var(--reviews--gray-700);
+	padding: 16px 24px;
+	margin: 0;
+	height: 80px;
+	overflow: hidden;
+	display: -webkit-box;
+	-webkit-line-clamp: 3;
+	-webkit-box-orient: vertical;
+}
+
+.reviews .content__reviews__item__control__item {
+	cursor: pointer;
+	padding: 10px 16px;
+	display: flex;
+	align-items: center;
+	color: var(--reviews--gray-700);
+	transition: background 0.3s;
+}
+
+.reviews .content__reviews__item__control__item:hover {
+	color: var(--reviews--dark);
+}
+
+.reviews .content__reviews__item__control__item:active {
+	color: var(--reviews--gray-700);
+}
+
+.reviews .content__reviews__item__answer {
+	border-radius: 24px;
+	background: var(--reviews--primery-100);
+	flex-wrap: wrap;
+}
+
+.reviews .answer__title {
+	font-weight: 500;
+	color: var(--reviews--dark);
+	flex-basis: 100%;
+}
+
+.reviews .answer__wrapper {
+	padding: 16px 24px;
+}
+
+.reviews .answer__wrapper.not-itmes {
+	margin: 0 auto;
+}
+
+.reviews .answer__wrapper.not-itmes .answer__title {
+	font-size: 24px;
+}
+
+.reviews .answer__wrapper.not-itmes .answer__title {
+	font-size: 24px;
+}
+
+.reviews .answer__body {
+	color: var(--reviews--gray-700);
+}
+
+.reviews .media-reviews {
+	width: calc(100%)
+}
+
+.modal_result__control {
+	display: flex;
+	justify-content: space-between;
+	margin-top: 24px;
+}
+
+.modal_result__control button {
+	width: 33%;
+}
+
+/* review item */
+
+.reviews .reviews__content {
+	display: grid;
+	grid-template-areas:
+	"user info"
+	"user text"
+	"user slider"
+	"user actions"
+	"user reply";
+	grid-template-columns: min-content 1fr;
+	padding: 8px;
+}
+
+@media (max-width: 576px) {
+	.reviews .reviews__content {
+		grid-template-areas:
+		"user info"
+		"text text"
+		"slider slider"
+		"actions actions"
+		"reply reply";
+	}
+}
+
+.reviews .reviews__content .content__user {
+	grid-area: user;
+}
+
+.reviews .content__reviews__item__info {
+	grid-area: info;
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: space-between;
+	align-items: center;
+	margin-bottom: 8px;
+}
+
+.reviews .content__reviews__item__info--wrapper {
+	margin-right: 8px;
+}
+
+.reviews .content__reviews__item__body {
+	grid-area: text;
+}
+
+.reviews .reviews__wrapper .swiper {
+	grid-area: slider;
+	margin-left: 0;
+	width: 100%;
+	max-width: 800px;
+}
+
+.reviews .content__reviews__item__control {
+	flex-wrap: wrap;
+	grid-area: actions;
+}
+
+.reviews .content__reviews__item__answer {
+	grid-area: reply;
+}
+
+/* review item end */
+
+.reviews .reviews__content.select {
+	border-radius: 12px;
+	padding: 8px;
+	animation: 1s ease-in review-select;
+}
+
+@keyframes review-select {
+	from {
+		background-color: var(--reviews--primery-100);
+	}
+
+	to {
+		background-color: transparent;
+	}
+}
+
+.reviews .more-reviews .btn-lite-reviews {
+	padding: 11px 173.5px;
+}
+
+.reviews .content__reviews__item__control p {
+	transition: width .3s;
+	min-width: 9px;
+}
+
+@media (max-width: 576px) {
+	.reviews .content__reviews__item__control .btn-sm-hide-text p {
+		display: none;
+	}
+	.reviews .content__reviews__item__info--wrapper .d-flex-reviews-center {
+		justify-content: start;
+		align-items: center;
+		flex-wrap: wrap;
+	}
+}
+
+.reviews .content__reviews__item__control [data-value="like"], .reviews .content__reviews__item__control [data-value="dislike"] {
+	transition: width 0.3s, background 0.3s;
+	min-width: 64px;
+}
+
+.reviews .content__reviews__item__control svg {
+	min-width: 24px;
+	width: 24px;
+	height: 24px;
+}
+
+.trans {
+	transition: width 0.3s, background 0.3s;
+}
+
+.content__reviews__item__body {
+	word-break: break-all;
+}

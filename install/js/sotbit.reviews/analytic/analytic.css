@@ -1,0 +1,33 @@
+.title-graph {
+    background: #FFF;
+    width: 900px;
+    font-size: 15px;
+    font-weight: bold;
+    text-align: center;
+}
+
+.test {
+    background: #FFF;
+    width: 900px;
+    font-size: 14px;
+    text-align: center;
+
+}
+
+.body-graph {
+    width: 900px;
+    height: 500px;
+}
+
+.title-graph__empty {
+    padding: 10px 0;
+}
+
+.p-top-graph-20 {
+    padding-top: 20px;
+}
+
+/* Fix google charts tooltip flickering */
+.google-visualization-tooltip {
+    pointer-events: none !important;
+}
