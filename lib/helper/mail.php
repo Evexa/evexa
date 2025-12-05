@@ -80,6 +80,7 @@ class Mail
         if (empty($arFields['NOTICE_EMAIL'])) {
             $arFields['NOTICE_EMAIL'] = Option::get("main", "email_from");
         }
+        $arFields['EMAIL_TO'] = $arFields['NOTICE_EMAIL'];
     }
     public static function getActionMessage(&$arFields): void
     {
